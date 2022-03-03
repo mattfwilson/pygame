@@ -4,7 +4,8 @@ pg.init()
 
 # Set up the drawing window
 def main():
-    clock = pg.time.Clock()
+    pg.init()
+    
     bg = pg.display.set_mode([624 , 720])
     color_inactive = pg.Color('gray')
     color_active = pg.Color('green')
@@ -72,6 +73,5 @@ def main():
         pg.display.flip()
 
 if __name__ == '__main__':
-    pg.init()
     main()
     pg.quit()
