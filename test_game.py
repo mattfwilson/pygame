@@ -1,6 +1,5 @@
 # Import and initialize the pygame library
 import pygame as pg
-pg.init()
 
 # Set up the drawing window
 def main():
