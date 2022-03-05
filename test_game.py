@@ -1,7 +1,6 @@
 # Import and initialize the pygame library
 import pygame as pg
 
-# Set up the drawing window
 def main():
     pg.init()
     
@@ -28,45 +27,47 @@ def main():
                 color = color_active if active else color_inactive
 
         # Fill the background with white
-        color = (255, 255, 255)
-        bg.fill(color)
+        bg_color = (255, 255, 255)
+        bg.fill(bg_color)
 
         # draws squares by row
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 80, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 80, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 80, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 80, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 80, 80, 80))
+        def draw_squares():
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 80, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 80, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 80, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 80, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 80, 80, 80))
 
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 176, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 176, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 176, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 176, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 176, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 176, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 176, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 176, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 176, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 176, 80, 80))
 
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 272, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 272, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 272, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 272, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 272, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 272, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 272, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 272, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 272, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 272, 80, 80))
 
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 368, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 368, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 368, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 368, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 368, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 368, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 368, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 368, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 368, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 368, 80, 80))
 
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 462, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 462, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 462, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 462, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 462, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 462, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 462, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 462, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 462, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 462, 80, 80))
 
-        pg.draw.rect(bg, color_inactive, pg.Rect(80, 558, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(176, 558, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(272, 558, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(368, 558, 80, 80))
-        pg.draw.rect(bg, color_inactive, pg.Rect(462, 558, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(80, 558, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(176, 558, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(272, 558, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(368, 558, 80, 80))
+            pg.draw.rect(bg, color_inactive, pg.Rect(462, 558, 80, 80))
+        draw_squares()
 
         # Flip the display
         pg.display.flip()
