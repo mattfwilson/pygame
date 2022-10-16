@@ -18,7 +18,7 @@ def main():
                 done = True
             if event.type == pg.MOUSEBUTTONDOWN:
                 # If the user clicked on the input_box rect.
-                if color_inactive.collidepoint(event.pos):
+                if color(event.pos):
                     # Toggle the active variable.
                     active = not active
                 else:
