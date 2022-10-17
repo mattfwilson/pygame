@@ -1,3 +1,4 @@
+from multiprocessing import Event
 import pygame as pg
 from sys import exit
 
@@ -27,7 +28,7 @@ while True: # perpetual loop to keep the game running
         if event.type == pg.QUIT: # get even to allow closing the pg window
             pg.quit() # quits out of pygame
             exit() # quits out of loop on system level (otherwise throws vid sys no initialized error)
-        if event.type == pg.MOUSEMOTION:
+        if event.type == pg.MOUSEBUTTONDOWN:
             if sloth_rect.collidepoint(event.pos):
                 score += 1
                 score_num_surf = score_font.render(str(score), False, 'White')
