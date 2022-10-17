@@ -25,16 +25,16 @@ sloth_rect = sloth_surf.get_rect(bottomright = (sloth_x_pos, sloth_y_pos))
 
 while True: # perpetual loop to keep the game running
     for event in pg.event.get(): # get all possible events in pg library
-        if event.type == pg.QUIT: # get even to allow closing the pg window
+        if event.type == pg.QUIT: # get event to allow closing the pg window
             pg.quit() # quits out of pygame
             exit() # quits out of loop on system level (otherwise throws vid sys no initialized error)
-        if event.type == pg.MOUSEBUTTONDOWN:
+        elif event.type == pg.MOUSEBUTTONDOWN:
             if sloth_rect.collidepoint(event.pos):
                 score += 1
                 score_num_surf = score_font.render(str(score), False, 'White')
                 print('Hit!')
         else:
-            print('Nothing...')
+            print('Nothing is happening...')
 
     SCREEN.blit(bg_surf, (0, 0)) # placement of image along x and y
     SCREEN.blit(ground_surf, (0, 416))
@@ -44,13 +44,10 @@ while True: # perpetual loop to keep the game running
 
     SCREEN.blit(player_surf, player_rect)
 
-    sloth_rect.x -= 3
-    if sloth_rect.right <= 0: # checks if right side of surf meets conditional
-        sloth_rect.left = 800 # repositions surf based on the left side of rect
+    sloth_rect.x -= 3 # tells rect to move designated amount on x axis
+    if sloth_rect.right <= 0: # checks if right side of surface meets conditional
+        sloth_rect.left = 800 # repositions surface based on the left side of rect
     SCREEN.blit(sloth_surf, sloth_rect)
-
-    # if player_rect.colliderect(sloth_rect): # check if one rect collides with another rect
-    #     print(f'You are getting pwned!')
 
     pg.display.update() # updates pg.display.set_mode()
     CLOCK.tick(60) # tells while loop to not run faster than 60fps 
