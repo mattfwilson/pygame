@@ -18,9 +18,15 @@ score_num_surf = score_font.render(str(score), True, 'Black')
 bg_surf = pygame.image.load('bg.png').convert_alpha()
 
 bird_pos = (2500, 520)
-bird_vel = 6
+bird_vel = random.randint(10, 20)
 bird_surf = pygame.image.load('bird.png').convert_alpha()
 bird_rect = bird_surf.get_rect(center=bird_pos)
+
+def respawn(vel):
+    vel = random.randint(10, 20)
+    bird_rect.top = random.randint(300, 1200)
+    bird_rect.left = 2560
+    return vel
 
 class Enemy():
 
@@ -54,7 +60,7 @@ while True:
             exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if bird_rect.collidepoint(event.pos):
-                bird_rect.y += 3
+                respawn(bird_vel)
                 score += 1
                 score_num_surf = score_font.render(str(score), False, 'Black')
                 print('Hit!')
@@ -67,9 +73,7 @@ while True:
 
     bird_rect.x -= bird_vel
     if bird_rect.right <= 0:
-        bird_vel = random.randint(6, 12)
-        bird_rect.top = random.randint(300, 1200)
-        bird_rect.left = 2560
+        respawn(bird_vel)
     SCREEN.blit(bird_surf, bird_rect)
 
     pygame.display.update()
