@@ -26,12 +26,13 @@ esc_num_surf = score_font.render(str(escapes), True, 'Black')
 bg_surf = pygame.image.load('bg.png').convert_alpha()
 
 juh_pos = (2500, 520)
-juh_vel = random.randint(12, 25)
+juh_vel = random.randint(5, 12)
 juh_surf = pygame.image.load('janelle.png').convert_alpha()
 juh_rect = juh_surf.get_rect(center=juh_pos)
+gravity = 0
 
 matt_pos = (2500, 200)
-matt_vel = random.randint(12, 25)
+matt_vel = random.randint(5, 12)
 matt_surf = pygame.image.load('matt.png').convert_alpha()
 matt_rect = matt_surf.get_rect(center=matt_pos)
 
@@ -41,8 +42,12 @@ def respawn(enemy, vel):
     enemy.left = 2560
     return vel
 
+def enemy_downed(enemy, gravity):
+    gravity += 50
+    enemy.y += gravity
+    return enemy, gravity
+
 while True:
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -50,12 +55,9 @@ while True:
                 sys.exit()
             finally:
                 main = False
-        if event.type ==  pygame.KEYDOWN:
-            pygame.quit()
-            exit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if juh_rect.collidepoint(event.pos):
-                respawn(juh_rect, juh_vel)
+                enemy_downed(juh_rect, gravity)
                 juh_score += 1
                 juh_score_num_surf = score_font.render(str(juh_score), False, 'Black')
                 print('You bopped Janelle!')
@@ -64,8 +66,9 @@ while True:
                 matt_score += 1
                 matt_score_num_surf = score_font.render(str(matt_score), False, 'Black')
                 print('You bopped Matt!')
-            else:
-                print('Nothing...')
+        if event.type ==  pygame.KEYDOWN:
+            pygame.quit()
+            exit()
 
     SCREEN.blit(bg_surf, (0, 0))
     SCREEN.blit(juh_score_surf, (40, 40))
