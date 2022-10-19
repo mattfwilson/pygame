@@ -18,7 +18,7 @@ sky_surf = pg.image.load('resources/bg.png') # create an image surface
 ground_surf = pg.image.load('resources/ground.png')
 
 player_surf = pg.image.load('resources/char.png').convert_alpha()
-player_rect = player_surf.get_rect(midbottom = (100, 430))
+player_rect = player_surf.get_rect(midbottom = (100, 420))
 
 sloth_x_pos = 700
 sloth_y_pos = 420
@@ -40,11 +40,10 @@ while True: # perpetual loop to keep the game running
 
     SCREEN.blit(sky_surf, (0, 0)) # placement of image along x and y
     SCREEN.blit(ground_surf, (0, 416))
-    SCREEN.blit(score_surf, score_rect)
-    pg.draw.line(SCREEN, 'Black', (0, 30), (800, 30), 60) # (display surface, color, start point, end point)
+    score_bg = pg.draw.line(SCREEN, '#000000', (0, 30), (800, 30), 60) # (display surface, color, start point, end point)
+    SCREEN.blit(score_num_surf, (110, 13))
     SCREEN.blit(score_surf, (20, 12)) # (display surface, color of rect, rect to be created)
     pg.draw.ellipse(SCREEN, 'Brown', pg.Rect(250, 100, 50, 50)) # (display surface, color, Rect shapw(x, y, width, height))
-    SCREEN.blit(score_num_surf, (110, 13))
     SCREEN.blit(player_surf, player_rect)
 
     sloth_rect.x -= 3 # tells rect to move designated amount on x axis
