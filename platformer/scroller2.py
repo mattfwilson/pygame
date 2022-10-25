@@ -15,6 +15,13 @@ score_surf = score_font.render('Score:', False, 'White') # creates font attribut
 score_rect = score_surf.get_rect(center = (90, 32))
 score_num_surf = score_font.render(str(score), False, 'White') # creates font attributes (string, anti-aliasing, color)
 
+def display_score(score_font):
+    current = pg.time.get_ticks()
+    score_surf = score_font.render(f'{current}', False, 'White')
+    score_rect = score_surf.get_rect(center = (400, 32))
+    SCREEN.blit(score_surf, score_rect)
+    print(current)
+
 sky_surf = pg.image.load('resources/bg.png') # create an image surface
 ground_surf = pg.image.load('resources/ground.png')
 
@@ -56,16 +63,17 @@ while True: # perpetual loop to keep the game running
             if event.type == pg.KEYUP:
                 print('released key')
         else:
-            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE: # if game over, press esc to restart game
                 game_active = True
 
     if game_active:
         # bgs and score
         SCREEN.blit(sky_surf, (0, 0)) # placement of image along x and y
         SCREEN.blit(ground_surf, (0, 416))
-        score_bg = pg.draw.line(SCREEN, '#000000', (0, 30), (800, 30), 60) # (display surface, color, start point, end point)
-        SCREEN.blit(score_num_surf, (110, 13))
-        SCREEN.blit(score_surf, (20, 12)) # (display surface, color of rect, rect to be created)
+        # score_bg = pg.draw.line(SCREEN, '#000000', (0, 30), (800, 30), 60) # (display surface, color, start point, end point)
+        # SCREEN.blit(score_num_surf, (110, 13))
+        # SCREEN.blit(score_surf, (20, 12)) # (display surface, color of rect, rect to be created)
+        display_score(score_font)
         
         # player
         gravity += 1
