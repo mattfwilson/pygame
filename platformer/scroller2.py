@@ -10,14 +10,15 @@ pg.display.set_caption('Platformer v1.0') # renames the title of the pygame wind
 score_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 30) # creates font surface (font-family, font-size)
 game_active = True
 
+start_time = 0
 score = 0
 score_surf = score_font.render('Score:', False, 'White') # creates font attributes (string, anti-aliasing, color)
 score_rect = score_surf.get_rect(center = (90, 32))
 score_num_surf = score_font.render(str(score), False, 'White') # creates font attributes (string, anti-aliasing, color)
 
 def display_score(score_font):
-    current = pg.time.get_ticks()
-    score_surf = score_font.render(f'{current}', False, 'White')
+    current = int(pg.time.get_ticks() / 1000) - start_time
+    score_surf = score_font.render(f'Score: {current}', False, 'White')
     score_rect = score_surf.get_rect(center = (400, 32))
     SCREEN.blit(score_surf, score_rect)
     print(current)
@@ -65,6 +66,7 @@ while True: # perpetual loop to keep the game running
         else:
             if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE: # if game over, press esc to restart game
                 game_active = True
+                start_time = int(pg.time.get_ticks() / 1000)
 
     if game_active:
         # bgs and score
