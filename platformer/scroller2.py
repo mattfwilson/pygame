@@ -1,20 +1,35 @@
-from asyncio.windows_events import NULL
-from multiprocessing import Event
 import pygame as pg
 from sys import exit
 
-pg.init() # initializes pygame
-SCREEN = pg.display.set_mode((800, 512)) # creates main screen display dimensions
-CLOCK = pg.time.Clock() # creates pygame clock
-pg.display.set_caption('Platformer v1.0') # renames the title of the pygame window
-score_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 30) # creates font surface (font-family, font-size)
-game_active = True
-
+pg.init()
+SCREEN = pg.display.set_mode((800, 512))
+CLOCK = pg.time.Clock()
+pg.display.set_caption('Platformer v1.0')
+score_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 30)
+game_active = False
 start_time = 0
+gravity = 0
+
 score = 0
-score_surf = score_font.render('Score:', False, 'White') # creates font attributes (string, anti-aliasing, color)
+score_surf = score_font.render('Score:', False, 'White')
 score_rect = score_surf.get_rect(center = (90, 32))
-score_num_surf = score_font.render(str(score), False, 'White') # creates font attributes (string, anti-aliasing, color)
+score_num_surf = score_font.render(str(score), False, 'White')
+
+sky_surf = pg.image.load('resources/bg.png')
+ground_surf = pg.image.load('resources/ground.png')
+
+player_surf = pg.image.load('resources/char.png').convert_alpha()
+player_rect = player_surf.get_rect(midbottom = (150, 420))
+
+# intro
+player_stand = pg.image.load('resources/char.png').convert_alpha()
+player_stand = pg.transform.scale(player_stand, (400, 600))
+player_stand_rect = player_stand.get_rect(center = (120, 256))
+
+sloth_x_pos = 700
+sloth_y_pos = 420
+sloth_surf = pg.image.load('resources/enemy_sloth.png').convert_alpha()
+sloth_rect = sloth_surf.get_rect(bottomright = (sloth_x_pos, sloth_y_pos))
 
 def display_score(score_font):
     current = int(pg.time.get_ticks() / 1000) - start_time
@@ -23,25 +38,12 @@ def display_score(score_font):
     SCREEN.blit(score_surf, score_rect)
     print(current)
 
-sky_surf = pg.image.load('resources/bg.png') # create an image surface
-ground_surf = pg.image.load('resources/ground.png')
-
-player_surf = pg.image.load('resources/char.png').convert_alpha()
-player_rect = player_surf.get_rect(midbottom = (150, 420))
-gravity = 0
-
-sloth_x_pos = 700
-sloth_y_pos = 420
-sloth_surf = pg.image.load('resources/enemy_sloth.png').convert_alpha() # creates font attributes (string, anti-aliasing, color)
-sloth_rect = sloth_surf.get_rect(bottomright = (sloth_x_pos, sloth_y_pos))
-
-
-while True: # perpetual loop to keep the game running
-    for event in pg.event.get(): # get all possible events in pg library
+while True:
+    for event in pg.event.get():
         key = pg.key.get_pressed()
-        if event.type == pg.QUIT: # get event to allow closing the pg window
-            pg.quit() # quits out of pygame
-            exit() # quits out of loop on system level (otherwise throws vid sys no initialized error)
+        if event.type == pg.QUIT:
+            pg.quit()
+            exit()
         if game_active:
             if event.type == pg.MOUSEBUTTONDOWN:
                 if sloth_rect.collidepoint(event.pos):
@@ -64,17 +66,14 @@ while True: # perpetual loop to keep the game running
             if event.type == pg.KEYUP:
                 print('released key')
         else:
-            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE: # if game over, press esc to restart game
+            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
                 game_active = True
                 start_time = int(pg.time.get_ticks() / 1000)
 
     if game_active:
         # bgs and score
-        SCREEN.blit(sky_surf, (0, 0)) # placement of image along x and y
+        SCREEN.blit(sky_surf, (0, 0))
         SCREEN.blit(ground_surf, (0, 416))
-        # score_bg = pg.draw.line(SCREEN, '#000000', (0, 30), (800, 30), 60) # (display surface, color, start point, end point)
-        # SCREEN.blit(score_num_surf, (110, 13))
-        # SCREEN.blit(score_surf, (20, 12)) # (display surface, color of rect, rect to be created)
         display_score(score_font)
         
         # player
@@ -85,17 +84,17 @@ while True: # perpetual loop to keep the game running
         SCREEN.blit(player_surf, player_rect)
 
         # enemy
-        sloth_rect.x -= 5 # tells rect to move designated amount on x axis
-        if sloth_rect.right <= 0: # checks if right side of surface meets conditional
-            sloth_rect.left = 800 # repositions surface based on the left side of rect
+        sloth_rect.x -= 5
+        if sloth_rect.right <= 0:
+            sloth_rect.left = 800
         SCREEN.blit(sloth_surf, sloth_rect)
 
         if sloth_rect.colliderect(player_rect):
             game_active = False
             sloth_rect.left = 800
-
     else:
-        SCREEN.fill('Red')
+        SCREEN.fill((84, 129, 80))
+        SCREEN.blit(player_stand, player_stand_rect)
 
-    pg.display.update() # updates pg.display.set_mode()
-    CLOCK.tick(60) # tells while loop to not run faster than 60fps 
+    pg.display.update()
+    CLOCK.tick(60)
