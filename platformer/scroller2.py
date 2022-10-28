@@ -6,6 +6,7 @@ SCREEN = pg.display.set_mode((800, 512))
 CLOCK = pg.time.Clock()
 pg.display.set_caption('Platformer v1.0')
 score_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 30)
+title_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 48)
 game_active = False
 start_time = 0
 gravity = 0
@@ -21,15 +22,21 @@ ground_surf = pg.image.load('resources/ground.png')
 player_surf = pg.image.load('resources/char.png').convert_alpha()
 player_rect = player_surf.get_rect(midbottom = (150, 420))
 
+sloth_x_pos = 700
+sloth_y_pos = 420
+sloth_surf = pg.image.load('resources/enemy_sloth.png').convert_alpha()
+sloth_rect = sloth_surf.get_rect(bottomright = (sloth_x_pos, sloth_y_pos))
+
 # intro
 player_stand = pg.image.load('resources/char.png').convert_alpha()
 player_stand = pg.transform.scale(player_stand, (400, 600))
 player_stand_rect = player_stand.get_rect(center = (120, 256))
 
-sloth_x_pos = 700
-sloth_y_pos = 420
-sloth_surf = pg.image.load('resources/enemy_sloth.png').convert_alpha()
-sloth_rect = sloth_surf.get_rect(bottomright = (sloth_x_pos, sloth_y_pos))
+game_name = title_font.render('Pixel Hopper', False, (112, 200, 160))
+game_name_rect = game_name.get_rect(center = (550, 230))
+
+game_instruct = score_font.render('Press Space to play', False, 'White')
+game_instruct_rect = game_instruct.get_rect(center = (550, 300))
 
 def display_score(score_font):
     current = int(pg.time.get_ticks() / 1000) - start_time
@@ -66,7 +73,7 @@ while True:
             if event.type == pg.KEYUP:
                 print('released key')
         else:
-            if event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE:
+            if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
                 game_active = True
                 start_time = int(pg.time.get_ticks() / 1000)
 
@@ -95,6 +102,8 @@ while True:
     else:
         SCREEN.fill((84, 129, 80))
         SCREEN.blit(player_stand, player_stand_rect)
+        SCREEN.blit(game_name, game_name_rect)
+        SCREEN.blit(game_instruct, game_instruct_rect)
 
     pg.display.update()
     CLOCK.tick(60)
