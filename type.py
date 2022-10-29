@@ -11,8 +11,7 @@ word_font = pygame.font.Font('platformer/resources/font/PixelOperator-Bold.ttf',
 word_text = word_font.render(str(word), False, 'Black')
 word_rect = word_text.get_rect(center = (128, 128))
 
-keys = {}
-
+keys = {'space': pygame.K_SPACE, 'a': pygame.K_a, 'e': pygame.K_e}
 
 while game_active:
     for event in pygame.event.get():
