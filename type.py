@@ -12,19 +12,17 @@ word_font = pygame.font.Font('platformer/resources/font/PixelOperator-Bold.ttf',
 word_text = word_font.render(str(word), False, 'Black')
 word_rect = word_text.get_rect(center = (256, 128))
 
-keys = {'space': pygame.K_SPACE, 'a': pygame.K_a, 'e': pygame.K_e}
-
-for letter in word:
-    if keyboard.is_pressed() == letter:
-        print(f'You pressed {letter}')
-
 while game_active:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-            # if keyboard.is_pressed(i) == keyboard.read_key(i):
-            #     print(f'You pressed a letter in the word')
+    for letter in word:
+        if keyboard.press(letter) == keyboard.read_key():
+            print(f'You pressed "{letter}" in the word!')
+        else:
+            print('Nothing...')
+    break
     
     screen.fill(pygame.Color('White'))
     screen.blit(word_text, word_rect)
