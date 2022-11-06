@@ -2,11 +2,11 @@ import pygame as pg
 from sys import exit
 
 pg.init()
-SCREEN = pg.display.set_mode((800, 512))
-CLOCK = pg.time.Clock()
-pg.display.set_caption('Platformer v1.0')
+screen = pg.display.set_mode((800, 512))
+clock = pg.time.Clock()
+pg.display.set_caption('Sloth Hopper')
 score_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 30)
-title_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 48)
+title_font = pg.font.Font('resources/font/PixelOperator-Bold.ttf', 64)
 game_active = False
 start_time = 0
 gravity = 0
@@ -32,18 +32,17 @@ player_stand = pg.image.load('resources/char.png').convert_alpha()
 player_stand = pg.transform.scale(player_stand, (400, 600))
 player_stand_rect = player_stand.get_rect(center = (120, 256))
 
-game_name = title_font.render('Pixel Hopper', False, (112, 200, 160))
+game_name = title_font.render('Sloth Hopper', False, (112, 200, 160))
 game_name_rect = game_name.get_rect(center = (550, 230))
 
 game_instruct = score_font.render('Press Space to play', False, 'White')
-game_instruct_rect = game_instruct.get_rect(center = (550, 300))
+game_instruct_rect = game_instruct.get_rect(center = (545, 286))
 
 def display_score(score_font):
     current = int(pg.time.get_ticks() / 1000) - start_time
     score_surf = score_font.render(f'Score: {current}', False, 'White')
     score_rect = score_surf.get_rect(center = (400, 32))
-    SCREEN.blit(score_surf, score_rect)
-    print(current)
+    screen.blit(score_surf, score_rect)
 
 while True:
     for event in pg.event.get():
@@ -66,10 +65,10 @@ while True:
                     print('jumping')
             if key[pg.K_a]:
                 player_rect.x -= 15
-                print('moving right')
+                print('moving left')
             if key[pg.K_d]:
                 player_rect.x += 15
-                print('moving left')
+                print('moving right')
             if event.type == pg.KEYUP:
                 print('released key')
         else:
@@ -79,8 +78,8 @@ while True:
 
     if game_active:
         # bgs and score
-        SCREEN.blit(sky_surf, (0, 0))
-        SCREEN.blit(ground_surf, (0, 416))
+        screen.blit(sky_surf, (0, 0))
+        screen.blit(ground_surf, (0, 416))
         display_score(score_font)
         
         # player
@@ -88,22 +87,22 @@ while True:
         player_rect.y += gravity
         if player_rect.bottom >= 420:
             player_rect.bottom = 420
-        SCREEN.blit(player_surf, player_rect)
+        screen.blit(player_surf, player_rect)
 
         # enemy
         sloth_rect.x -= 5
         if sloth_rect.right <= 0:
             sloth_rect.left = 800
-        SCREEN.blit(sloth_surf, sloth_rect)
+        screen.blit(sloth_surf, sloth_rect)
 
         if sloth_rect.colliderect(player_rect):
             game_active = False
             sloth_rect.left = 800
     else:
-        SCREEN.fill((84, 129, 80))
-        SCREEN.blit(player_stand, player_stand_rect)
-        SCREEN.blit(game_name, game_name_rect)
-        SCREEN.blit(game_instruct, game_instruct_rect)
+        screen.fill((84, 129, 80))
+        screen.blit(player_stand, player_stand_rect)
+        screen.blit(game_name, game_name_rect)
+        screen.blit(game_instruct, game_instruct_rect)
 
     pg.display.update()
-    CLOCK.tick(60)
+    clock.tick(60)
