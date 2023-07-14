@@ -27,12 +27,12 @@ esc_surf = score_font.render('Escapes:', False, 'Black')
 esc_num_surf = score_font.render(str(escapes), True, 'Black')
 
 juh_pos = (1440, 520)
-juh_vel = random.randint(5, 12)
+juh_vel = random.randint(5, 8)
 juh_surf = pygame.image.load('janelle.png').convert_alpha()
 juh_rect = juh_surf.get_rect(center=juh_pos)
 
 matt_pos = (1440, 200)
-matt_vel = random.randint(5, 12)
+matt_vel = random.randint(5, 8)
 matt_surf = pygame.image.load('matt.png').convert_alpha()
 matt_rect = matt_surf.get_rect(center=matt_pos)
 
