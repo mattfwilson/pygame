@@ -11,7 +11,8 @@ pygame.display.set_caption('RPS Fight!')
 vel_x = 0
 vel_y = 0
 
-while running
+running = True
+while running:
     for even in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
