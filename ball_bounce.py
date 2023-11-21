@@ -3,21 +3,33 @@ import pymunk as pm
 
 pg.init()
 
-display = pg.display.set_mode((800, 800))
+display = pg.display.set_mode((1200, 800))
 bg_color = (255, 255, 255)
 clock = pg.time.Clock()
-space = pm.Space()
 FPS = 60
-space.gravity = 0, 1000
+space = pm.Space()
+space.gravity = 0, -1000
+space.elasticity = 1
+
+ball = pm.Body()
+ball.position = 100, 600
+shape = pm.Circle(ball, 10)
+shape.density = 1
+shape.elasticity = 1
+space.add(ball, shape)
+
+line = pm.Body(body_type=pm.Body.STATIC)
+segment = pm.Segment(line, (0, 350), (800, 150), 5)
+segment.elasticity = .5
+space.add(segment, line)
+
+ramp = pm.Body(body_type=pm.Body.STATIC)
+segment2 = pm.Segment(ramp, (600, 150), (850, 200), 5)
+segment2.elasticity = .5
+space.add(segment2, ramp)
 
 def convert_coordinates(point):
     return point[0], 800 - point[1]
-
-body = pm.Body()
-body.position = 200, 200
-shape = pm.Circle(body, 10)
-shape.density = 1
-space.add(body, shape)
 
 def game():
     while True:
@@ -26,8 +38,10 @@ def game():
                 return
 
         display.fill(bg_color)
-        x, y = convert_coordinates(body.position)
-        pg.draw.circle(display, (255, 0, 0), body.position, 20)
+        x, y = convert_coordinates(ball.position)
+        pg.draw.circle(display, (255, 0, 0), (int(x), int(y)), 20)
+        pg.draw.line(display, (0, 0, 0), (0, 450), (800, 650), 5)
+        pg.draw.line(display, (0, 0, 0), (600, 650), (850, 600), 5)
         pg.display.update()
         clock.tick(FPS)
         space.step(1/FPS)
