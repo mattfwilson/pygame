@@ -22,18 +22,14 @@ def Ball():
         self.shape.elasticity = 1
         self.shape.density = 1
 
-    def draw(self):
-        x, y = self.body.position
-        pg.draw.circle(DISPLAY, (255, 0, 0))
-
 def game():
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 return
         DISPLAY.fill(BG_COLOR)
-#        print_text('Ball Simulator', (230, 350), (255, 0, 0), 50, 'Times New Roman')
-#        print_text('Maximize your balls', (275, 410), (96, 96, 96), 24, 'Arial')
+        print_text('Ball Simulator', (230, 350), (255, 0, 0), 50, 'Times New Roman')
+        print_text('Maximize your balls', (275, 410), (96, 96, 96), 24, 'Arial')
         pg.display.update()
         CLOCK.tick(FPS)
         SPACE.step(1/FPS)
