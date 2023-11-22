@@ -7,6 +7,9 @@ display = pg.display.set_mode((1200, 800))
 bg_color = (255, 255, 255)
 clock = pg.time.Clock()
 FPS = 60
+
+bounce_sound = pg.mixer('boing-2.wav')
+
 space = pm.Space()
 space.gravity = 0, -1000
 space.elasticity = 1
@@ -18,10 +21,10 @@ shape.density = 1
 shape.elasticity = 1
 space.add(ball, shape)
 
-line = pm.Body(body_type=pm.Body.STATIC)
-segment = pm.Segment(line, (0, 350), (800, 150), 5)
+slope = pm.Body(body_type=pm.Body.STATIC)
+segment = pm.Segment(slope, (0, 450), (800, 150), 5)
 segment.elasticity = .5
-space.add(segment, line)
+space.add(segment, slope)
 
 ramp = pm.Body(body_type=pm.Body.STATIC)
 segment2 = pm.Segment(ramp, (600, 150), (850, 200), 5)
@@ -40,8 +43,9 @@ def game():
         display.fill(bg_color)
         x, y = convert_coordinates(ball.position)
         pg.draw.circle(display, (255, 0, 0), (int(x), int(y)), 20)
-        pg.draw.line(display, (0, 0, 0), (0, 450), (800, 650), 5)
+        pg.draw.line(display, (0, 0, 0), (0, 350), (800, 650), 5)
         pg.draw.line(display, (0, 0, 0), (600, 650), (850, 600), 5)
+
         pg.display.update()
         clock.tick(FPS)
         space.step(1/FPS)
