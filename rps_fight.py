@@ -11,6 +11,7 @@ clock = pygame.time.Clock()
 space = pymunk.Space()
 FPS = 50
 border_thickness = 10
+ball_radius = 25
 
 
 bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
@@ -45,14 +46,14 @@ class Ball():
     def __init__(self, x, y):
         self.body = pymunk.Body()
         self.body.position = x, y
-        self.shape = pymunk.Circle(self.body, 25)
+        self.shape = pymunk.Circle(self.body, ball_radius)
         self.shape.elasticity = 1
         self.shape.density = 1
         self.body.velocity = random.uniform(300, 500), random.uniform(300, 500)
         space.add(self.body, self.shape)
 
     def draw(self):
-        pygame.draw.circle(display, (255, 0, 0), convert_coords(self.body.position), 25)
+        pygame.draw.circle(display, (255, 0, 0), self.body.position, ball_radius)
         
 def game():
     ball1 = Ball(100, 100)
@@ -65,10 +66,10 @@ def game():
             if event.type == pygame.QUIT:
                 return
         display.fill(bg_color)
-        pygame.draw.line(display, (160, 160, 160), (5, 595), (595, 595), border_thickness) # bottom
-        pygame.draw.line(display, (160, 160, 160), (5, 595), (5, 5), border_thickness) # left
-        pygame.draw.line(display, (160, 160, 160), (5, 5), (595, 5), border_thickness) # top
-        pygame.draw.line(display, (160, 160, 160), (595, 595), (595, 5), border_thickness) # right
+        pygame.draw.line(display, (160, 160, 160), (0, 600), (600, 600), border_thickness) # bottom
+        pygame.draw.line(display, (160, 160, 160), (0, 600), (0, 0), border_thickness) # left
+        pygame.draw.line(display, (160, 160, 160), (0, 0), (600, 0), border_thickness) # top
+        pygame.draw.line(display, (160, 160, 160), (600, 600), (600, 0), border_thickness) # right
         ball1.draw()
         ball2.draw()
         ball3.draw()
