@@ -18,7 +18,7 @@ class Ball():
         self.velocity = 10
 
     def draw(self):
-        pg.draw.circle(DISPLAY, ORANGE_COLOR, (400, int(self.y)), 30)
+        pg.draw.circle(DISPLAY, ORANGE_COLOR, (400, int(self.y)), 40)
     
     def move(self):
         self.velocity += ACCELERATION
@@ -51,7 +51,7 @@ class Triangle():
     def move(self):
         self.velocity += ACCELERATION
         self.y += self.velocity
-        if self.y >= 450:
+        if self.y >= 490:
             self.velocity = -self.velocity
 
 def game():
