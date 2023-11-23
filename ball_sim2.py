@@ -49,12 +49,18 @@ class Ball():
     def draw(self):
         pygame.draw.circle(display, (0, 0, 255), self.body.position, ball_radius)
 
+def rand_coords():
+    x = random.randint(50, 550)
+    y = random.randint(50, 550)
+    print(x, y)
+    return x, y
+
 def collide():
     print('collision occurred')
     return True
 
-def game():
-    balls = [Ball(random.randint(50, 550), random.randint(500, 550), 1) for i in range(50)]
+def simulation():
+    balls = [Ball(random.randint(50, 550), random.randint(50, 550), 1) for i in range(50)]
     balls.append(Ball(400, 400, 2))
 
     handler = space.add_collision_handler(1, 2)
@@ -72,11 +78,12 @@ def game():
         pygame.draw.line(display, (160, 160, 160), (0, 0), (600, 0), border_thickness) # top
         pygame.draw.line(display, (160, 160, 160), (600, 600), (600, 0), border_thickness) # right
         [ball.draw() for ball in balls]
-        pygame.display.set_caption('Circle Simulator')
+
+        pygame.display.set_caption('Bouncing Simulator')
         pygame.display.update()
         clock.tick(FPS)
         space.step(1/FPS)
 
-game()
+simulation()
 pygame.quit()
 
