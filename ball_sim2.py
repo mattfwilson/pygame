@@ -16,25 +16,31 @@ ball_count = 500
 ball_radius = 5
 
 # define walls
-bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-seg_bottom = pymunk.Segment(bottom_wall, (5, 5), (5, 595), collision_thickness)
-seg_bottom.elasticity = 1
-space.add(seg_bottom, bottom_wall)
+def draw_walls():
+    bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
+    seg_bottom = pymunk.Segment(bottom_wall, (5, 5), (5, 595), collision_thickness)
+    seg_bottom.elasticity = 1
+    space.add(seg_bottom, bottom_wall)
 
-left_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-seg_left = pymunk.Segment(left_wall, (595, 5), (0, 0), collision_thickness)
-seg_left.elasticity = 1
-space.add(seg_left, left_wall)
+    left_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
+    seg_left = pymunk.Segment(left_wall, (595, 5), (0, 0), collision_thickness)
+    seg_left.elasticity = 1
+    space.add(seg_left, left_wall)
 
-top_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-seg_top = pymunk.Segment(top_wall, (595, 595), (5, 595), collision_thickness)
-seg_top.elasticity = 1
-space.add(seg_top, top_wall)
+    top_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
+    seg_top = pymunk.Segment(top_wall, (595, 595), (5, 595), collision_thickness)
+    seg_top.elasticity = 1
+    space.add(seg_top, top_wall)
 
-right_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-seg_right = pymunk.Segment(right_wall, (600, 600), (595, 5), collision_thickness)
-seg_right.elasticity = 1
-space.add(seg_right, right_wall)
+    right_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
+    seg_right = pymunk.Segment(right_wall, (600, 600), (595, 5), collision_thickness)
+    seg_right.elasticity = 1
+    space.add(seg_right, right_wall)
+
+    pygame.draw.line(display, (160, 160, 160), (0, 600), (600, 600), border_thickness) # bottom
+    pygame.draw.line(display, (160, 160, 160), (0, 600), (0, 0), border_thickness) # left
+    pygame.draw.line(display, (160, 160, 160), (0, 0), (600, 0), border_thickness) # top
+    pygame.draw.line(display, (160, 160, 160), (600, 600), (600, 0), border_thickness) # right
 
 class Ball():
     def __init__(self, x, y, collision_type):
@@ -74,12 +80,8 @@ def simulation():
         
         # render shapes on display surface
         display.fill(bg_color)
-        pygame.draw.line(display, (160, 160, 160), (0, 600), (600, 600), border_thickness) # bottom
-        pygame.draw.line(display, (160, 160, 160), (0, 600), (0, 0), border_thickness) # left
-        pygame.draw.line(display, (160, 160, 160), (0, 0), (600, 0), border_thickness) # top
-        pygame.draw.line(display, (160, 160, 160), (600, 600), (600, 0), border_thickness) # right
+        draw_walls()
         [ball.draw() for ball in balls]
-
         pygame.display.set_caption('Bouncing Simulator')
         pygame.display.update()
         clock.tick(FPS)
