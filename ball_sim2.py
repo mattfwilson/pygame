@@ -12,7 +12,8 @@ space = pymunk.Space()
 FPS = 50
 border_thickness = 20
 collision_thickness = 10
-ball_radius = 10
+ball_count = 500
+ball_radius = 5
 
 # define walls
 bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
@@ -43,7 +44,7 @@ class Ball():
         self.shape.elasticity = 1
         self.shape.density = 1
         self.shape.collision_type = 1
-        self.body.velocity = 200, 200
+        self.body.velocity = random.randint(0, 200), random.randint(0, 200)
         space.add(self.body, self.shape)
 
     def draw(self):
@@ -60,7 +61,7 @@ def collide():
     return True
 
 def simulation():
-    balls = [Ball(random.randint(50, 550), random.randint(50, 550), 1) for i in range(50)]
+    balls = [Ball(random.randint(50, 550), random.randint(50, 550), 1) for i in range(ball_count)]
     balls.append(Ball(400, 400, 2))
 
     handler = space.add_collision_handler(1, 2)
@@ -86,4 +87,3 @@ def simulation():
 
 simulation()
 pygame.quit()
-
