@@ -62,7 +62,7 @@ def collide():
 
 def simulation():
     balls = [Ball(random.randint(50, 550), random.randint(50, 550), 1) for i in range(ball_count)]
-    balls.append(Ball(400, 400, 2))
+    balls.append(Ball(random.randint(50, 550), random.randint(50, 550), 2))
 
     handler = space.add_collision_handler(1, 2)
     handler.begin = collide()
