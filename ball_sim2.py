@@ -5,7 +5,8 @@ import random
 pygame.init()
 
 running = True
-display = pygame.display.set_mode((600, 600))
+dimensions = (600, 600)
+display = pygame.display.set_mode(dimensions)
 bg_color = (255, 255, 255)
 clock = pygame.time.Clock()
 space = pymunk.Space()
@@ -56,13 +57,16 @@ class Ball():
     def draw(self):
         pygame.draw.circle(display, (0, 0, 255), self.body.position, ball_radius)
 
+def rand_num():
+    return random.randint(dimensions[0] - 550, dimensions[1] - 50) 
+    
 def collide():
     print('collision occurred')
     return True
 
 def simulation():
-    balls = [Ball(random.randint(50, 550), random.randint(50, 550), 1) for i in range(ball_count)]
-    balls.append(Ball(random.randint(50, 550), random.randint(50, 550), 2))
+    balls = [Ball(rand_num(), rand_num(), 1) for i in range(ball_count)]
+    balls.append(Ball(rand_num(), rand_num(), 2))
 
     handler = space.add_collision_handler(1, 2)
     handler.begin = collide()
