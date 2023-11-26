@@ -2,19 +2,19 @@ import pygame
 import pymunk
 import random
 
-pygame.init()
-
 running = True
 dimensions = (600, 600)
-display = pygame.display.set_mode(dimensions)
 bg_color = (255, 255, 255)
-clock = pygame.time.Clock()
-space = pymunk.Space()
 FPS = 120
 border_thickness = 20
 collision_thickness = 10
-ball_count = 500
-ball_radius = 5
+ball_count = 25
+ball_radius = 10
+
+pygame.init()
+display = pygame.display.set_mode(dimensions)
+clock = pygame.time.Clock()
+space = pymunk.Space()
 
 # define and draw walls
 def draw_walls():
@@ -68,8 +68,8 @@ def simulation():
     balls = [Ball(rand_num(), rand_num(), 1) for i in range(ball_count)]
     balls.append(Ball(rand_num(), rand_num(), 2))
 
-    handler = space.add_collision_handler(1, 2)
-    handler.begin = collide()
+    handler = space.add_collision_handler(1, 1)
+    handler.separate = collide
 
     while running:
         for event in pygame.event.get():
@@ -77,6 +77,7 @@ def simulation():
                 return
         
         # render shapes to display surface
+        handler.begin = collide()
         display.fill(bg_color)
         draw_walls()
         [ball.draw() for ball in balls]
@@ -85,5 +86,7 @@ def simulation():
         clock.tick(FPS)
         space.step(1/FPS)
 
-simulation()
-pygame.quit()
+
+if __name__ == '__main__':
+    simulation()
+    pygame.quit()
