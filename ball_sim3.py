@@ -12,11 +12,13 @@ space = pymunk.Space()
 
 border_thickness = 20
 collision_thickness = 10
-ball_count = 2000
+ball_count = 5000
 ball_radius = 5
 color_black = (0, 0, 0)
 color_white = (255, 255, 255)
 color_red = (255, 0, 0)
+color_green = (0, 255, 0)
+count = 0
 
 def draw_walls():
     bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
@@ -51,18 +53,18 @@ class Ball():
         self.shape.elasticity = 1
         self.shape.density = 1
         self.shape.collision_type = collision_type
-        self.body.velocity = random.randrange(-100, 100), random.randrange(-100, 100)
+        self.body.velocity = random.randrange(-200, 200), random.randrange(-200, 200)
         space.add(self.body, self.shape)
 
     def draw(self):
         if self.shape.collision_type != 2:
             pygame.draw.circle(display, color_white, self.body.position, ball_radius)
         else:
-            pygame.draw.circle(display, color_red, self.body.position, ball_radius)
+            pygame.draw.circle(display, random.choice([color_red, color_green]), self.body.position, ball_radius)
 
-    def change_to_red(self, arbiter, space, data):
+    def randomize_color(self, arbiter, space, data):
         self.shape.collision_type = 2
-        self.shape.elasticity += .01
+        print('Merry Christmas!')
 
     def get_handler(self):
         return self.shape.collision_type
@@ -70,18 +72,14 @@ class Ball():
 def rand_num():
     return random.randint(dimensions[0] - 995, dimensions[1] - 50) 
 
-def collide(arbiter, space, data):
-    print(f'Red ball collision')
-    return True
-
 def simulation():
     balls = [Ball(rand_num(), rand_num(), i + 3) for i in range(ball_count)]
     balls.append(Ball(rand_num(), rand_num(), 2))
 
     handlers = [space.add_collision_handler(2, i + 3) for i in range(ball_count)]
     for i, handler in enumerate(handlers):
-        handler.separate = balls[i].change_to_red
-    
+        handler.separate = balls[i].randomize_color
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
