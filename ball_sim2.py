@@ -9,9 +9,10 @@ wall_color = (255, 255, 255)
 FPS = 120
 border_thickness = 20
 collision_thickness = 10
-ball_count = 25
-ball_radius = 10
+ball_count = 500
+ball_radius = 5
 ball_color = (255, 255, 255)
+count = 0
 
 pygame.init()
 display = pygame.display.set_mode(dimensions)
@@ -59,13 +60,13 @@ class Ball():
         if self.shape.collision_type == 1:
             pygame.draw.circle(display, (ball_color), self.body.position, ball_radius)
         if self.shape.collision_type == 2:
-            pygame.draw.circle(display, (0, 0, 255), self.body.position, ball_radius)
+            pygame.draw.circle(display, (255, 0, 0), self.body.position, 20)
 
 def rand_num():
     return random.randint(dimensions[0] - 550, dimensions[1] - 50) 
     
 def collide(arbiter, space, data):
-    print('collision occurred')
+    print(f'Red ball collision')
     return True
 
 def simulation():
