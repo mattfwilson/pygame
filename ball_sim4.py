@@ -12,7 +12,7 @@ space = pymunk.Space()
 
 border_thickness = 20
 collision_thickness = 10
-ball_count = 2000
+ball_count = 1500
 ball_radius = 5
 color_black = (0, 0, 0)
 color_white = (255, 255, 255)
@@ -61,9 +61,9 @@ class Ball():
         if self.shape.collision_type != 2:
             pygame.draw.circle(display, color_white, self.body.position, ball_radius)
         else:
-            pygame.draw.circle(display, color_green, self.body.position, ball_radius)
+            pygame.draw.circle(display, color_red, self.body.position, ball_radius)
 
-    def randomize_color(self, arbiter, space, data):
+    def convert_to_red(self, arbiter, space, data):
         self.shape.collision_type = 2
 
     def get_handler(self):
@@ -78,7 +78,7 @@ def simulation():
 
     handlers = [space.add_collision_handler(2, i + 3) for i in range(ball_count)]
     for i, handler in enumerate(handlers):
-        handler.separate = balls[i].randomize_color
+        handler.separate = balls[i].convert_to_red
 
     while running:
         for event in pygame.event.get():
