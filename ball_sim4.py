@@ -70,7 +70,7 @@ class Ball():
         return self.shape.collision_type
 
 def rand_num():
-    return random.randint(dimensions[0] - 995, dimensions[1] - 50) 
+    return random.randint(0, dimensions[0]) 
 
 def simulation():
     balls = [Ball(rand_num(), rand_num(), i + 3) for i in range(ball_count)]
