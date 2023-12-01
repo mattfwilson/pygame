@@ -1,13 +1,13 @@
 import pygame
 import math
-from screeninfo import get_monitors
-import ctypes
-
+#from screeninfo import get_monitors
+#import ctypes
+from AppKit import NSScreen
 pygame.init()
 
-user = ctypes.windll.user32
-WIDTH = user.GetSystemMetrics(0)
-HEIGHT = user.GetSystemMetrics(1)
+#user = ctypes.windll.user32
+WIDTH = NSScreen.mainScreen().frame().size.width
+HEIGHT = NSScreen.mainScreen().frame().size.height
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('Planet Simulation')
 
