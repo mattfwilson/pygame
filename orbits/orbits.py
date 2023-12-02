@@ -19,8 +19,8 @@ color_grey = (80, 70, 80)
 class Planet:
     ASTRO_UNITS = 149.6e6 * 1000
     GRAVITY = 6.67428e-11
-    SCALE = 200 / ASTRO_UNITS # 1 astronomical units = 100 pixels
-    TIMESTEP = 3600 * 24 # represents 1 day
+    SCALE = 125 / ASTRO_UNITS # 1 astronomical units = 100 pixels
+    TIMESTEP = 7200 * 24 # represents 1 day
     
     def __init__(self, x, y, radius, color, mass):
         self.x = x
@@ -89,12 +89,15 @@ def simulation():
     mars.y_vel = 24.077 * 1000
     
     mercury = Planet(0.387 * Planet.ASTRO_UNITS, 0, 8, color_grey, 3.30 * 10**23)
-    mercury.y_vel = 47.4 * 1000
+    mercury.y_vel = -47.4 * 1000
 
     venus = Planet(0.723 * Planet.ASTRO_UNITS, 0, 14, color_white, 4.8685 * 10**24)
     venus.y_vel = -35.02 * 1000
 
-    planets = [sun, earth, mars, mercury, venus]
+    jupiter = Planet(5.2 * Planet.ASTRO_UNITS, 0, 20, color_orange, 1.89813 * 10**27)
+    jupiter.y_vel = 13.06 * 1000
+
+    planets = [sun, earth, mars, mercury, venus, jupiter]
 
     while running:
         clock.tick(60)
