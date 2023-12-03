@@ -12,7 +12,7 @@ pygame.display.set_caption('Planet Sim')
 color_black = (0, 0, 0)
 color_white = (255, 255, 255)
 color_yellow = (244, 219, 72)
-color_blue = (106, 187, 218)
+color_blue = (120, 196, 242)
 color_orange = (225, 181, 91)
 color_red = (212, 114, 93)
 color_grey = (80, 70, 80)
@@ -128,6 +128,8 @@ def simulation():
                     venus.y_vel = random.uniform(-25, -35.02) * 10800
                 if event.key == pygame.K_m:
                     mars.y_vel = random.uniform(10, 24.077) * 1000
+                if event.key == pygame.K_s:
+                    sun.x_vel = random.uniform(0, 7) * 1000
 
         for planet in planets:
             planet.update_pos(planets)
