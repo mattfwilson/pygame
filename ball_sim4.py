@@ -4,7 +4,7 @@ import random
 
 pygame.init()
 running = True
-dimensions = (1000, 1000)
+dimensions = (1500, 1000)
 FPS = 60
 display = pygame.display.set_mode(dimensions)
 clock = pygame.time.Clock()
@@ -23,28 +23,28 @@ color_lst = [color_green, color_red]
 
 def draw_walls():
     bottom_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-    seg_left = pymunk.Segment(bottom_wall, (995, 995), (0, 995), collision_thickness)
-    seg_left.elasticity = 1
-    space.add(seg_left, bottom_wall)
-    pygame.draw.line(display, (color_white), (0, 995), (995, 995), border_thickness) # bottom
+    seg_bottom = pymunk.Segment(bottom_wall, (1495, 995), (0, 995), collision_thickness)
+    seg_bottom.elasticity = 1
+    space.add(seg_bottom, bottom_wall)
+    pygame.draw.line(display, (color_white), (0, 995), (1495, 995), border_thickness) # bottom
 
     left_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
     seg_left = pymunk.Segment(left_wall, (0, 0), (0, 995), collision_thickness)
     seg_left.elasticity = 1
     space.add(seg_left, left_wall)
-    pygame.draw.line(display, (color_white), (0, 995), (0, 0), border_thickness) # left
+    pygame.draw.line(display, (color_white), (0, 995), (0, 0), border_thickness) # left:
 
     top_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-    seg_top = pymunk.Segment(top_wall, (0, 0), (995, 0), collision_thickness)
+    seg_top = pymunk.Segment(top_wall, (0, 0), (1495, 0), collision_thickness)
     seg_top.elasticity = 1
     space.add(seg_top, top_wall)
-    pygame.draw.line(display, (color_white), (0, 0), (995, 0), border_thickness) # top
+    pygame.draw.line(display, (color_white), (0, 0), (1495, 0), border_thickness) # top
 
     right_wall = pymunk.Body(body_type=pymunk.Body.STATIC)
-    seg_right = pymunk.Segment(right_wall, (995, 995), (995, 0), collision_thickness)
+    seg_right = pymunk.Segment(right_wall, (1495, 1495), (1495, 0), collision_thickness)
     seg_right.elasticity = 1
     space.add(seg_right, right_wall)
-    pygame.draw.line(display, (color_white), (995, 995), (995, 0), border_thickness) # right
+    pygame.draw.line(display, (color_white), (1495, 1495), (1495, 0), border_thickness) # right
 
 class Ball():
     def __init__(self, x, y, collision_type):
